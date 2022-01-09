@@ -3,55 +3,10 @@ Query: SELECT COUNT(*) FROM Orders JOIN Shippers WHERE Orders.ShipperID = Shippe
 Output: 54
 
 2. What is the last name of the employee with the most orders?
-Query: SELECT Employees.LastName FROM Employees WHERE Employees.EmployeeID IN (SELECT Orders.EmployeeID FROM Orders GROUP BY EmployeeID ORDER BY COUNT(*) DESC LIMIT 1)
+Query: SELECT Employees.LastName FROM Employees WHERE Employees.EmployeeID IN (SELECT Orders.EmployeeID FROM Orders GROUP BY EmployeeID ORDER BY COUNT(*) DESC LIMIT 1);
 Output: Peacock
 
 3. What product was ordered the most by customers in Germany?
-Query: SELECT ProductName FROM Products WHERE ProductID IN (SELECT ProductID FROM Orders JOIN OrderDetails ON Orders.OrderID = OrderDetails.OrderID JOIN Customers ON Orders.CustomerID = Customers.CustomerID WHERE Country = 'Germany')
-Output: 
-        ProductName
-        Chais
-        Chang
-        Grandma's Boysenberry Spread
-        Northwoods Cranberry Sauce
-        Ikura
-        Queso Cabrales
-        Konbu
-        Tofu
-        Genen Shouyu
-        Alice Mutton
-        Teatime Chocolate Biscuits
-        Tunnbröd
-        NuNuCa Nuß-Nougat-Creme
-        Gumbär Gummibärchen
-        Schoggi Schokolade
-        Rössle Sauerkraut
-        Gorgonzola Telino
-        Geitost
-        Sasquatch Ale
-        Steeleye Stout
-        Inlagd Sill
-        Gravad lax
-        Chartreuse verte
-        Boston Crab Meat
-        Singaporean Hokkien Fried Mee
-        Ipoh Coffee
-        Gula Malacca
-        Zaanse koeken
-        Perth Pasties
-        Pâté chinois
-        Gnocchi di nonna Alice
-        Ravioli Angelo
-        Raclette Courdavault
-        Camembert Pierrot
-        Sirop d'érable
-        Tarte au sucre
-        Wimmers gute Semmelknödel
-        Laughing Lumberjack Lager
-        Scottish Longbreads
-        Gudbrandsdalsost
-        Fløtemysost
-        Mozzarella di Giovanni
-        Longlife Tofu
-        Rhönbräu Klosterbier
-        Lakkalikööri
+Query: SELECT Products.ProductName FROM Customers JOIN Orders ON Customers.CustomerID = Orders.CustomerID JOIN OrderDetails ON Orders.OrderID = OrderDetails.OrderID JOIN Products ON OrderDetails.ProductID = Products.ProductID WHERE Country = 'Germany' GROUP BY ProductName ORDER BY COUNT(Orders.OrderID) DESC
+Limit 1;
+Output: Gorgonzola Telino
